@@ -1,7 +1,9 @@
+import { Outlet } from "react-router-dom";
 import styles from "../styles/Header.module.css";
+import PropTypes from "prop-types";
 
-function Header() {
-    return (
+function Header({children}) {
+    return (<>
         <header>
             <h1>MyShop</h1>
             <nav>
@@ -15,7 +17,12 @@ function Header() {
                 </ul>
             </nav>
         </header>
-    );
+        {children ?? <Outlet />}
+    </>);
+}
+
+Header.propTypes = {
+    children: PropTypes.element,
 }
 
 export default Header;
