@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import Header from "./components/Header";
 import ErrorPage from "./components/ErrorPage";
-import Landing from "./components/Landing";
+import Home from "./components/Home";
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -14,7 +14,7 @@ const Router = () => {
                 </Header>
             ),
             children: [
-                {index: true, element: <Landing />},
+                {index: true, element: <Home />},
             ]
         }
     ]);
