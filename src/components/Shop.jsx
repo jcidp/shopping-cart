@@ -1,17 +1,11 @@
-import useFetchAPI from "../hooks/useFetchAPI";
+import { useOutletContext } from "react-router-dom";
 import styles from "../styles/Shop.module.css";
 import ProductCard from "./ProductCard";
 
-const endpointUrl = "https://fakestoreapi.com/products";
-
 const Shop = () => {
-    const {data: products, error, isLoading} = useFetchAPI(endpointUrl);
-    
+    const [products, error, isLoading] = useOutletContext();
     if (error) return <><h2>Error loading data</h2></>;
     if (isLoading) return <h2>Loading...</h2>
-    
-    // const productIds = data.objectIDs.slice(0, 18);
-    console.log(products);
     
     return (
         <section className="products">

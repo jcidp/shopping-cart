@@ -1,8 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from "../styles/AppLayout.module.css";
 import PropTypes from "prop-types";
+import useFetchAPI from "../hooks/useFetchAPI";
+
+const endpointUrl = "https://fakestoreapi.com/products";
 
 function AppLayout({children}) {
+    const {data: products, error, isLoading} = useFetchAPI(endpointUrl);
+
     return (<>
         <header className={styles.header}>
             <h1><Link to="/">MyShop</Link></h1>
@@ -20,7 +25,7 @@ function AppLayout({children}) {
             </nav>
         </header>
         <main className={styles.main}>
-            {children ?? <Outlet />}
+            {children ?? <Outlet context={[products, error, isLoading]} />}
         </main>
         <footer className={styles.footer}>
             <a className={styles.anchor} href="https://github.com/jcidp" target="_blank" rel="noreferrer">Built by jcidp

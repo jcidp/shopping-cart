@@ -9,7 +9,7 @@ const ProductCard = ({product}) => {
             </div>
             <div className="productInfo">
                 <p>{product.title}</p>
-                <span>$100</span>
+                <span>${product.price}</span>
                 <input type="number" />
                 <button>Add to cart</button>
             </div>
