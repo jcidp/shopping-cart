@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetchAPI = (url, options) => {
+const useFetchAPI = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -8,7 +8,7 @@ const useFetchAPI = (url, options) => {
     useEffect(() => {
         async function fetchAPI() {
             try {
-                const response = await fetch(url, options);
+                const response = await fetch("https://fakestoreapi.com/products");
                 if(response.status >= 400) {
                     throw new Error("server error");
                 }
@@ -23,7 +23,7 @@ const useFetchAPI = (url, options) => {
         }
 
         fetchAPI();
-    }, [url, options]);
+    }, []);
 
     return {data, error, isLoading};
 }

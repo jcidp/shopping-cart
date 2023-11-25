@@ -2,11 +2,35 @@ import { Link, Outlet } from "react-router-dom";
 import styles from "../styles/AppLayout.module.css";
 import PropTypes from "prop-types";
 import useFetchAPI from "../hooks/useFetchAPI";
-
-const endpointUrl = "https://fakestoreapi.com/products";
+import { useEffect, useState } from "react";
 
 function AppLayout({children}) {
-    const {data: products, error, isLoading} = useFetchAPI(endpointUrl);
+    const [products, setProducts] = useState([]);
+    const {data, error, isLoading} = useFetchAPI();
+
+    useEffect(() => {
+        if(data) {
+            console.log("Setting products");
+            setProducts(data.map(product => ({...product, cartQuantity: 0})));
+        }
+    }, [data])
+
+    const handleAddToCart = (e) => {
+        const id = +e.target.dataset.productId;
+        const quantity = +document.getElementById(`qty-${id}`).value;
+        setProducts(products.map(product => {
+            if (product.id !== id) return product;
+            return {...product, cartQuantity: quantity}
+        }));
+    };
+
+    const handleRemoveFromCart = (e) => {
+        const id = +e.target.dataset.productId;
+        setProducts(products.map(product => {
+            if (product.id !== id) return product;
+            return {...product, cartQuantity: 0}
+        }));
+    };
 
     return (<>
         <header className={styles.header}>
@@ -27,7 +51,7 @@ function AppLayout({children}) {
             </nav>
         </header>
         <main className={styles.main}>
-            {children ?? <Outlet context={[products, error, isLoading]} />}
+            {children ?? <Outlet context={{products, error, isLoading, handleAddToCart, handleRemoveFromCart}} />}
         </main>
         <footer className={styles.footer}>
             <a className={styles.anchor} href="https://github.com/jcidp" target="_blank" rel="noreferrer">Built by jcidp
