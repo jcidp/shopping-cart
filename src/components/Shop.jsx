@@ -8,15 +8,13 @@ const Shop = () => {
     }
     
     return (
-        <main>
-            <section className="products">
-                <h2>Products!</h2>
-                <div className={styles.productGrid}>
-                    {products}
-                </div>
-            </section>
-        </main>
-    )
-}
+        <section className="products">
+            <h2>Products!</h2>
+            <div className={styles.productGrid}>
+                {products}
+            </div>
+        </section>
+    );
+};
 
 export default Shop;
