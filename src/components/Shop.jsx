@@ -3,12 +3,13 @@ import styles from "../styles/Shop.module.css";
 import ProductCard from "./ProductCard";
 
 const Shop = () => {
-    const {data, error, isLoading} = useFetchAPI();
+    const {data, error, isLoading} = useFetchAPI("https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=11");
     
     if (error) return <><h2>Error loading data</h2></>;
     if (isLoading) return <h2>Loading...</h2>
     
     const productIds = data.objectIDs.slice(0, 18);
+    console.log(productIds);
     
     return (
         <section className="products">

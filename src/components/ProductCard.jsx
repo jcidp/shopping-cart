@@ -1,17 +1,28 @@
 import styles from "../styles/ProductCard.module.css";
+import PropTypes from "prop-types";
+import useFetchAPI from "../hooks/useFetchAPI";
 
-const ProductCard = () => {
+const ProductCard = ({id}) => {
+    const {data, error, isLoading} = useFetchAPI(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`);
+    
+    if (error) return <><h2>Error loading data</h2></>;
+    if (isLoading) return <h2>Loading...</h2>
+
     return(
         <div className={styles.product}>
-            <img src="https://via.placeholder.com/300/771796" alt="placeholder" />
+            <img src={data.primaryImageSmall} alt={data.title} />
             <div className="productInfo">
-                <p>Product Name</p>
+                <p>{data.title}</p>
                 <span>$100</span>
-                <input type="number" value="1" />
+                <input type="number" />
                 <button>Add to cart</button>
             </div>
         </div>
     );
 };
+
+ProductCard.propTypes = {
+    id: PropTypes.number,
+}
 
 export default ProductCard;

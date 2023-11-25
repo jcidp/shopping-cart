@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetchAPI = () => {
+const useFetchAPI = (url) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -8,7 +8,7 @@ const useFetchAPI = () => {
     useEffect(() => {
         async function fetchAPI() {
             try {
-                const response = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=11");
+                const response = await fetch(url);
                 if(response.status >= 400) {
                     throw new Error("server error");
                 }
@@ -23,8 +23,7 @@ const useFetchAPI = () => {
         }
 
         fetchAPI();
-    }, []);
-
+    }, [url]);
 
     return {data, error, isLoading};
 }
