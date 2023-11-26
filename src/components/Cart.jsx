@@ -20,7 +20,7 @@ const Cart = () => {
 
     return (<>
         <h2>Cart total: ${Intl.NumberFormat().format(cartProducts.reduce((sum, product) => sum + product.price * product.cartQuantity, 0))}</h2>
-        <button>Go to Checkout</button>
+        <Link to="/thank-you">Go to Checkout</Link>
         {location.pathname !== "/cart" && 
             <Link to="/cart">Go to Cart</Link>
         }
