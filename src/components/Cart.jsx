@@ -1,5 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
+import { Link, useLocation, useOutletContext } from "react-router-dom";
 import ProductCard from "./ProductCard";
 
 const Cart = () => {
