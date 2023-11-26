@@ -22,6 +22,30 @@
     font-weight: bold;
 }
 
+.cart {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    transform: translateY(0.125em);
+
+    & svg {
+        width: 1.5em;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.cartItems {
+    position: absolute;
+    bottom: 0;
+    right: -0.75rem;
+    background-color: lightyellow;
+    border-radius: 50%;
+    padding: 0 0.25rem;
+}
+
 .main {
     margin-top: 3em;
     margin-bottom: 1em;

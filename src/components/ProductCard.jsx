@@ -3,21 +3,26 @@ import styles from "../styles/ProductCard.module.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product, inCart}) => {
     const [quantity, setQuantity] = useState(product.cartQuantity || 1);
     const [isEditing, setIsEditing] = useState(false);
-    const {handleAddToCart, handleRemoveFromCart} = useOutletContext();
+    const {handleAddToCart, handleRemoveFromCart, setShowCart} = useOutletContext();
 
     const handleInput = (e) => {
         setQuantity(e.target.value);
     };
+
+    const handleAddWithShowCart = (e) => {
+        handleAddToCart(e);
+        setShowCart(true);
+    }
 
     const toggleEdit = () => {
         setIsEditing(!isEditing);
     };
 
     const handleConfirm = (e) => {
-        handleAddToCart(e);
+        handleAddToCart(e, true);
         toggleEdit();
     };
 
@@ -34,20 +39,20 @@ const ProductCard = ({product}) => {
             <div className="productInfo">
                 <p>{product.title}</p>
                 <span>${product.price}</span>
-                {product.cartQuantity > 0 && !isEditing ? (
+                {inCart && !isEditing ? (
                     <span>{quantity}</span>
                 ) : (
-                    <input id={`qty-${product.id}`} type="number" value={quantity} onChange={handleInput} />
+                    <input className={styles.quantityInput} id={`qty-${product.id}-${inCart ? "cart" : ""}`} type="number" value={quantity} onChange={handleInput} />
                 )}
-                {product.cartQuantity === 0 ? (
-                    <button data-product-id={product.id} onClick={handleAddToCart}>Add to cart</button>    
+                {!inCart? (
+                    <button data-product-id={product.id} onClick={handleAddWithShowCart}>Add to cart</button>    
                 ) : isEditing ? (<>
                     <button data-product-id={product.id} onClick={handleConfirm}>Confirm</button>    
                     <button data-product-id={product.id} onClick={handleCancel}>Cancel</button>    
                 </>) : (
                     <button data-product-id={product.id} onClick={toggleEdit}>Edit</button>    
                 )}
-                {product.cartQuantity > 0 && 
+                {inCart && 
                     <button data-product-id={product.id} onClick={handleRemoveFromCart}>Remove from cart</button>
                 }
             </div>
@@ -57,6 +62,7 @@ const ProductCard = ({product}) => {
 
 ProductCard.propTypes = {
     product: PropTypes.object,
+    inCart: PropTypes.bool,
 }
 
 export default ProductCard;
