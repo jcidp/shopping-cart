@@ -13,8 +13,14 @@ const Cart = () => {
 
     if (cartProducts.length === 0) return (<>
         <h2>Your cart is empty!</h2>
-        <p>Visit our shop and add what you like to your cart.</p>
-        <Link to="/shop">Visit Shop</Link>
+        {location.pathname === "/shop" ? (
+            <p>Add a product to your cart to see it here</p>
+        ) : (
+            <>
+                <p>Visit our shop and add what you like to your cart.</p>
+                <Link to="/shop">Visit Shop</Link>
+            </>
+        )}
     </>);
 
 
