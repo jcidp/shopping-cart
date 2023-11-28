@@ -38,7 +38,11 @@ const ProductCard = ({product, inCart}) => {
             </div>
             <div className="productInfo">
                 <p>{product.title}</p>
-                <span>${product.price}</span>
+                <p>
+                    {Intl.NumberFormat("en-US", {style: "currency", currency: "USD"})
+                        .format(product.price)}
+                </p>
+                <label htmlFor={`qty-${product.id}-${inCart ? "cart" : ""}`}>Quantity:</label>
                 {inCart && !isEditing ? (
                     <span>{quantity}</span>
                 ) : (
