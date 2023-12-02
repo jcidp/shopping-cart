@@ -1,10 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from "../styles/AppLayout.module.css";
-import PropTypes from "prop-types";
 import useFetchAPI from "../hooks/useFetchAPI";
 import { useEffect, useState } from "react";
 
-function AppLayout({children}) {
+function AppLayout() {
     const [products, setProducts] = useState([]);
     const [showCart, setShowCart] = useState(false);
     const {data, error, isLoading} = useFetchAPI();
@@ -55,7 +54,7 @@ function AppLayout({children}) {
             </nav>
         </header>
         <main className={styles.main}>
-            {children ?? <Outlet context={{products, error, isLoading, showCart, handleAddToCart, handleRemoveFromCart, setShowCart}} />}
+            <Outlet context={{products, error, isLoading, showCart, handleAddToCart, handleRemoveFromCart, setShowCart}} />
         </main>
         <footer className={styles.footer}>
             <a className={styles.anchor} href="https://github.com/jcidp" target="_blank" rel="noreferrer">Built by jcidp
@@ -66,10 +65,6 @@ function AppLayout({children}) {
             </a>  
         </footer>
     </>);
-}
-
-AppLayout.propTypes = {
-    children: PropTypes.element,
 }
 
 export default AppLayout;
