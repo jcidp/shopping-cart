@@ -1,7 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+:root {
+  font-family: 'Montserrat', sans-serif;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-color: white;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1.375rem;
 }
 
 svg {
@@ -15,4 +33,44 @@ a {
 
 img {
   border-radius: 5px;
+}
+
+.primaryBg {
+  background-color: #6E41E2
+}
+
+
+.secondaryBg {
+  background-color: #FFFFFF
+}
+
+.primaryColor {
+  color: #FFFFFF
+}
+
+.secondaryColor {
+  color: #6E41E2
+}
+
+.btnPrimary {
+  composes: primaryBg primaryColor;
+  text-align: center;
+  max-width: 10em;
+  display: block;
+  padding: 0.25em 0.5em;
+  border: 1px solid #6E41E2;
+  border-radius: 5px;
+  font-weight: bold;
+  line-height: 1.5;
+  transform: scale(1);
+  transition: transform 0.1s linear;
+
+  &:hover {
+      cursor: pointer;
+      transform: scale(1.03);
+  }
+}
+
+.btnSecondary {
+  composes: btnPrimary secondaryBg secondaryColor;
 }

@@ -4,13 +4,10 @@ import styles from "../styles/Home.module.css";
 const Home = () => {
     return (
         <section className={styles.heroSection}>
-            <div className="hero-text">
-                <h2>Hero Text</h2>
-                <p>Some more text</p>
-                <Link className="btn primary" to="/shop">CTA</Link>
-            </div>
-            <div className="img-container">
-                <img src="https://via.placeholder.com/300/771796" alt="placeholder" />
+            <div className={styles.heroText}>
+                <h2>The store with somethings you don't want!</h2>
+                <p>Add an item to your cart and go to the checkout to "buy" it ;)</p>
+                <Link className={styles.btnPrimary} to="/shop">Shop Now</Link>
             </div>
         </section>
         

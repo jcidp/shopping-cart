@@ -55,7 +55,7 @@ const ProductCard = ({product, inCart, handleAddToCart, handleRemoveFromCart, se
                     </div>
                     <div className={styles.buttons}>
                         {!inCart? (
-                            <button className={styles.buttonText} data-product-id={product.id} onClick={handleAddWithShowCart}>Add to cart</button>    
+                            <button className={styles.btnPrimary} data-product-id={product.id} onClick={handleAddWithShowCart}>Add to cart</button>    
                             ) : isEditing ? (<>
                             <button className={styles.buttonIcon} data-product-id={product.id} onClick={handleConfirm} aria-label="Confirm">
                                 <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>check</title><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg>

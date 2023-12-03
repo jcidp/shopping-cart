@@ -46,7 +46,7 @@ function AppLayout() {
     return (<>
         <header className={styles.header}>
             <div className={styles.container}>
-                <h1><Link to="/">MyShop</Link></h1>
+                <h1 className={styles.h1}><Link to="/">FakeStore</Link></h1>
                 <nav className={styles.nav}>
                     <ul className={styles.navMenu}>
                         <li>

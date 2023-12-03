@@ -1,10 +1,11 @@
 .product {
-    margin-top: 1em;
+    margin: 1em 0;
     display: grid;
     grid-template-rows: 1fr max-content;
-    border: 1px solid grey;
+    box-shadow: 1px 1px 2px 2px grey;
+    background-color: white;
     border-radius: 5px;
-    padding: 1rem;
+    padding: 1em;
 }
 
 .imgContainer {
@@ -24,7 +25,7 @@
     margin-top: 1em;
     display: grid;
     place-items: center;
-    row-gap: 0.5rem;
+    row-gap: 0.5em;
 
     & .title {
         text-align: center;
@@ -39,6 +40,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
     }
 
     & .quantity {
@@ -56,13 +58,15 @@
 }
 
 .quantityInput {
-    width: 2rem;
+    width: 2em;
     text-align: center;
 }
 
 .buttonIcon {
     border: none;
     background: none;
+    display: flex;
+    align-items: center;
 
     &:hover {
         cursor: pointer;
@@ -70,5 +74,9 @@
 }
 
 .svg {
-    width: 1rem
+    width: 1em
+}
+
+.btnPrimary {
+    composes: btnPrimary from "/src/index.css";
 }
