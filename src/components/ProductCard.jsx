@@ -2,7 +2,7 @@ import styles from "../styles/ProductCard.module.css";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
-const ProductCard = ({product, inCart, handleAddToCart, handleRemoveFromCart, setShowCart}) => {
+const ProductCard = ({product, inCart, handleAddToCart, handleRemoveFromCart}) => {
     const [quantity, setQuantity] = useState(inCart ? product.cartQuantity : 1);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -16,7 +16,6 @@ const ProductCard = ({product, inCart, handleAddToCart, handleRemoveFromCart, se
 
     const handleAddWithShowCart = (e) => {
         handleAddToCart(e);
-        setShowCart(true);
     }
 
     const toggleEdit = () => {
@@ -85,7 +84,6 @@ ProductCard.propTypes = {
     inCart: PropTypes.bool,
     handleAddToCart: PropTypes.func,
     handleRemoveFromCart: PropTypes.func,
-    setShowCart: PropTypes.func,
 };
 
 export default ProductCard;

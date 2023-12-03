@@ -76,6 +76,32 @@
     background-color: white;
     padding: 1em 1em;
     overflow-y: auto;
+    animation: 0.5s ease-out forwards;
+    animation-name: slide-in;
+}
+
+.shred {
+    animation-name: slide-out;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .footer {

@@ -10,6 +10,10 @@ function AppLayout() {
     const {data, error, isLoading} = useFetchAPI();
     const location = useLocation();
 
+    if (location.pathname === "/thank-you" && products.reduce((sum, product) => sum + product.cartQuantity, 0) > 0) {
+        setProducts(products.map(product => ({...product, cartQuantity: 0})));
+    }
+
     useEffect(() => {
         if (location.pathname === "/") setShowCart(false);
     }, [location.pathname]);
@@ -30,6 +34,7 @@ function AppLayout() {
             if (product.id !== id) return product;
             return {...product, cartQuantity: newQuantity};
         }));
+        if (products.reduce((sum, product) => sum + product.cartQuantity, 0) === 0) setShowCart(true);
     };
 
     const handleRemoveFromCart = (e) => {
@@ -41,7 +46,15 @@ function AppLayout() {
         }));
     };
 
-    const toggleShowCart = () => setShowCart(!showCart);
+    const toggleShowCart = () => {
+        const sidebar = document.querySelector(`.${styles.cartSideBar}`);
+        if (showCart) {
+            sidebar.classList.add(styles.shred);
+            setTimeout(() => setShowCart(!showCart), 500);
+            return;
+        }
+        setShowCart(!showCart)
+    };
 
     return (<>
         <header className={styles.header}>

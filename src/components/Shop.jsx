@@ -3,7 +3,7 @@ import styles from "../styles/Shop.module.css";
 import ProductCard from "./ProductCard";
 
 const Shop = () => {
-    const {products, error, isLoading, handleAddToCart, setShowCart} = useOutletContext();
+    const {products, error, isLoading, handleAddToCart} = useOutletContext();
 
     if (error) return (<div className={styles.flexGrow}>
             <h2 className={styles.h2}>Error loading data</h2>
@@ -18,7 +18,7 @@ const Shop = () => {
             <h2 className={styles.h2}>Products!</h2>
             <div className={styles.productGrid}>
                 {products.map(product => 
-                    <ProductCard key={product.id} product={product} handleAddToCart={handleAddToCart} setShowCart={setShowCart}/>
+                    <ProductCard key={product.id} product={product} handleAddToCart={handleAddToCart}/>
                 )}
             </div>
         </section>
