@@ -2,21 +2,15 @@ import { render, screen } from "@testing-library/react";
 import { vi } from "vitest"
 import Cart from "../components/Cart";
 
-const {mockedUseOutletContext, mockedUseLocation, mockedLink} = vi.hoisted(() => {
-    return {
-        mockedUseOutletContext: vi.fn(),
-        mockedUseLocation: vi.fn(),
-        mockedLink: vi.fn(),
-    };
-});
+const {mockedUseLocation, mockedLink} = vi.hoisted(() => ({
+    mockedUseLocation: vi.fn(),
+    mockedLink: vi.fn(),
+}));
 
-vi.mock("react-router-dom", () => {
-    return {
-        useOutletContext: mockedUseOutletContext,
-        useLocation: mockedUseLocation,
-        Link: mockedLink,
-    };
-});
+vi.mock("react-router-dom", () => ({
+    useLocation: mockedUseLocation,
+    Link: mockedLink,
+}));
 
 vi.mock("../components/ProductCard.jsx", () => {
     return {
@@ -26,16 +20,18 @@ vi.mock("../components/ProductCard.jsx", () => {
     };
 });
 
+mockedLink.mockImplementation(({children}) => <a role="link">{children}</a>);
+
 describe("Cart", () => {
     it("render error when there's an error", () => {
-        mockedUseOutletContext.mockReturnValue({
+        const mockedProps = {
             products: [],
             error: "error",
             isLoading: false,
-        });
+        };
         mockedUseLocation.mockReturnValue({pathname: "/cart"});
 
-        render(<Cart />)
+        render(<Cart {...mockedProps} />)
 
         expect(screen.getByRole("heading", {name: "Error loading data"}))
             .toBeInTheDocument();
@@ -43,18 +39,17 @@ describe("Cart", () => {
     });
 
     it("renders products correctly", () => {
-        mockedUseOutletContext.mockReturnValue({
+        const mockedProps = {
             products: [
                 {id: 7, price: 10, cartQuantity: 1},
                 {id: 9, price: 20, cartQuantity: 2},
             ],
             error: null,
             isLoading: false,
-        });
+        };
         mockedUseLocation.mockReturnValue({pathname: "/cart"});
-        mockedLink.mockReturnValue(<a role="link">Go to Checkout</a>);
 
-        render(<Cart />)
+        render(<Cart {...mockedProps} />)
         
         expect(screen.getByRole("heading", {name: "Cart total: $50.00"})).toBeInTheDocument();
         expect(screen.getByRole("link", {name: "Go to Checkout"})).toBeInTheDocument();
@@ -63,18 +58,17 @@ describe("Cart", () => {
     });
 
     it("renders empty state with no products in cart", () => {
-        mockedUseOutletContext.mockReturnValue({
+        const mockedProps = {
             products: [
                 {id: 7, price: 10, cartQuantity: 0},
                 {id: 9, price: 20, cartQuantity: 0},
             ],
             error: null,
             isLoading: false,
-        });
+        };
         mockedUseLocation.mockReturnValue({pathname: "/cart"});
-        mockedLink.mockReturnValue(<a role="link">Visit Shop</a>)
 
-        render(<Cart />)
+        render(<Cart {...mockedProps} />)
 
         expect(screen.getByRole("heading", {name: "Your cart is empty!"})).toBeInTheDocument();
         expect(screen.getByText(/Visit our shop and add what you like to your cart/)).toBeInTheDocument();
@@ -83,48 +77,46 @@ describe("Cart", () => {
     });
 
     it("renders loading state", () => {
-        mockedUseOutletContext.mockReturnValue({
+        const mockedProps = {
             products: null,
             error: null,
             isLoading: true,
-        });
+        };
         mockedUseLocation.mockReturnValue({pathname: "/cart"});
 
-        render(<Cart />)
+        render(<Cart {...mockedProps} />)
         
         expect(screen.getByRole("heading", {name: "Loading..."})).toBeInTheDocument();
     });    
 
     it("renders empty state with special message when in /shop path", () => {
-        mockedUseOutletContext.mockReturnValue({
+        const mockedProps = {
             products: [
                 {id: 7, price: 10, cartQuantity: 0},
                 {id: 9, price: 20, cartQuantity: 0},
             ],
             error: null,
             isLoading: false,
-        });
+        };
         mockedUseLocation.mockReturnValue({pathname: "/shop"});
 
-        render(<Cart />)
+        render(<Cart {...mockedProps} />)
 
         expect(screen.getByText(/Add a product to your cart to see it here/)).toBeInTheDocument();
     });
 
     it("renders 'Go to Cart' anchor when not in /cart path' and there are products in cart", () => {
-        mockedUseOutletContext.mockReturnValue({
+        const mockedProps = {
             products: [
                 {id: 7, price: 10, cartQuantity: 1},
                 {id: 9, price: 20, cartQuantity: 0},
             ],
             error: null,
             isLoading: false,
-        });
+        };
         mockedUseLocation.mockReturnValue({pathname: "/shop"});
-        mockedLink.mockReturnValueOnce(<a role="link">Go to Checkout</a>);
-        mockedLink.mockReturnValue(<a role="link">Go to Cart</a>);
 
-        render(<Cart />)
+        render(<Cart {...mockedProps} />)
 
         expect(screen.getByRole("link", {name: "Go to Checkout"})).toBeInTheDocument();
         expect(screen.getByRole("link", {name: "Go to Cart"})).toBeInTheDocument();

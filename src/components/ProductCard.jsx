@@ -1,12 +1,10 @@
-import { useOutletContext } from "react-router-dom";
 import styles from "../styles/ProductCard.module.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-const ProductCard = ({product, inCart}) => {
+const ProductCard = ({product, inCart, handleAddToCart, handleRemoveFromCart, setShowCart}) => {
     const [quantity, setQuantity] = useState(product.cartQuantity || 1);
     const [isEditing, setIsEditing] = useState(false);
-    const {handleAddToCart, handleRemoveFromCart, setShowCart} = useOutletContext();
 
     const handleInput = (e) => {
         setQuantity(e.target.value);
@@ -67,6 +65,9 @@ const ProductCard = ({product, inCart}) => {
 ProductCard.propTypes = {
     product: PropTypes.object,
     inCart: PropTypes.bool,
-}
+    handleAddToCart: PropTypes.func,
+    handleRemoveFromCart: PropTypes.func,
+    setShowCart: PropTypes.func,
+};
 
 export default ProductCard;

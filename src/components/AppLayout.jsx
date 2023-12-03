@@ -1,12 +1,18 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import styles from "../styles/AppLayout.module.css";
 import useFetchAPI from "../hooks/useFetchAPI";
 import { useEffect, useState } from "react";
+import Cart from "./Cart";
 
 function AppLayout() {
     const [products, setProducts] = useState([]);
     const [showCart, setShowCart] = useState(false);
     const {data, error, isLoading} = useFetchAPI();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/") setShowCart(false);
+    }, [location.pathname]);
 
     useEffect(() => {
         if(data) {
@@ -52,6 +58,11 @@ function AppLayout() {
                     </li>
                 </ul>
             </nav>
+            {(location.pathname === "/" || location.pathname === "/shop") && products.length > 0 && showCart && (
+                <section className={styles.cartSideBar}>
+                    <Cart products={products} error={error} isLoading={isLoading} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart}/>
+                </section>
+            )}
         </header>
         <main className={styles.main}>
             <Outlet context={{products, error, isLoading, showCart, handleAddToCart, handleRemoveFromCart, setShowCart}} />

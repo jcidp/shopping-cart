@@ -4,24 +4,10 @@ import ProductCard from "../components/ProductCard";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 
-const {mocks} = vi.hoisted(() => {
-    return {
-        mocks: vi.fn(),
-    };
-});
-
-vi.mock("react-router-dom", () => {
-    return {
-        useOutletContext: mocks,
-    };
-});
-
 describe("ProductCard component", () => {
-    mocks.mockReturnValue({
-        handleAddToCart: vi.fn(),
-        handleRemoveFromCart: vi.fn(),
-        setShowCart: vi.fn(),
-    });
+    const handleAddToCart = vi.fn();
+    const handleRemoveFromCart = vi.fn();
+    const setShowCart = vi.fn();
 
     it("renders image and text of product", () => {
         const product = {
@@ -30,7 +16,7 @@ describe("ProductCard component", () => {
             price: 10,
             title: "test",
             cartQuantity: 1,
-        }
+        };
 
         render(<ProductCard product={product} />);
 
@@ -50,18 +36,18 @@ describe("ProductCard component", () => {
         }
         const user = userEvent.setup();
 
-        render(<ProductCard product={product} />);
+        render(<ProductCard product={product} handleAddToCart={handleAddToCart} setShowCart={setShowCart} />);
         const btn = screen.getByRole("button", {name: "Add to cart"});
 
-        expect(mocks().handleAddToCart).not.toHaveBeenCalled();
-        expect(mocks().setShowCart).not.toHaveBeenCalled();
+        expect(handleAddToCart).not.toHaveBeenCalled();
+        expect(setShowCart).not.toHaveBeenCalled();
 
         await act(async () => {
             await user.click(btn);
         });
 
-        expect(mocks().handleAddToCart).toHaveBeenCalledTimes(1);
-        expect(mocks().setShowCart).toHaveBeenCalledTimes(1);
+        expect(handleAddToCart).toHaveBeenCalledTimes(1);
+        expect(setShowCart).toHaveBeenCalledTimes(1);
     });
 
     it("renders 'edit' and 'remove from cart' buttons when inCart is true", () => {
@@ -92,16 +78,16 @@ describe("ProductCard component", () => {
         };
         const user = userEvent.setup();
 
-        render(<ProductCard product={product} inCart={true} />);
+        render(<ProductCard product={product} inCart={true} handleRemoveFromCart={handleRemoveFromCart} />);
         const btn = screen.getByRole("button", {name: "Remove from cart"});
 
-        expect(mocks().handleRemoveFromCart).not.toHaveBeenCalled();
+        expect(handleRemoveFromCart).not.toHaveBeenCalled();
 
         await act(async () => {
             await user.click(btn);
         });
 
-        expect(mocks().handleRemoveFromCart).toHaveBeenCalledTimes(1);
+        expect(handleRemoveFromCart).toHaveBeenCalledTimes(1);
     });
 
     it("handles clicks on 'edit' and 'cancel' correctly, including rendering the different paths", async () => {

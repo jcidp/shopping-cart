@@ -3,8 +3,8 @@ import AppLayout from "./components/AppLayout";
 import ErrorPage from "./components/ErrorPage";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
-import Cart from "./components/Cart";
 import ThankYou from "./components/ThankYou";
+import CartRoute from "./components/CartRoute";
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -19,7 +19,7 @@ const Router = () => {
             children: [
                 {index: true, element: <Home />},
                 {path: "shop", element: <Shop />},
-                {path: "cart", element: <Cart />},
+                {path: "cart", element: <CartRoute />},
                 {path: "thank-you", element: <ThankYou />},
             ],
         },
