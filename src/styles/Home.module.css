@@ -23,7 +23,8 @@
     row-gap: 2em;
     text-align: center;
     font-weight: 500;
-    background-color: rgba(200, 200, 200, 0.6);
+    background-color: rgba(200, 200, 200, 0.75);
+    padding: 2em;
 }
 
 .btnPrimary {

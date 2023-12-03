@@ -49,9 +49,7 @@ function AppLayout() {
                 <h1 className={styles.h1}><Link to="/">FakeStore</Link></h1>
                 <nav className={styles.nav}>
                     <ul className={styles.navMenu}>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
+                        <li><Link to="/">Home</Link></li>
                         <li><Link to="/shop">Shop</Link></li>
                         <li className={styles.centerContent}>
                             <button className={styles.cart} onClick={toggleShowCart}>
