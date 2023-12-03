@@ -20,6 +20,12 @@ vi.mock("../components/ProductCard.jsx", () => {
     };
 });
 
+vi.mock("../components/Loader.jsx", () => ({
+    default: () => (
+        <h2>Loading...</h2>
+    ),
+}));
+
 mockedLink.mockImplementation(({children}) => <a role="link">{children}</a>);
 
 describe("Cart", () => {

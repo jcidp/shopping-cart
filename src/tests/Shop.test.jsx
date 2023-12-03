@@ -14,6 +14,12 @@ vi.mock("../components/ProductCard.jsx", () => ({
     ),
 }));
 
+vi.mock("../components/Loader.jsx", () => ({
+    default: () => (
+        <h2>Loading...</h2>
+    ),
+}));
+
 describe("Shop page", () => {
     it("Renders products when they exist", () => {
         mockedUseOutletContext.mockReturnValue({

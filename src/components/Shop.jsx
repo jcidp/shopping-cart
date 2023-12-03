@@ -1,6 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import styles from "../styles/Shop.module.css";
 import ProductCard from "./ProductCard";
+import Loader from "./Loader";
 
 const Shop = () => {
     const {products, error, isLoading, handleAddToCart} = useOutletContext();
@@ -10,7 +11,7 @@ const Shop = () => {
             <p className={styles.p}>Please try reloading the page.</p>
         </div>);
     if (isLoading) return (<div className={styles.flexGrow}>
-            <h2 className={styles.h2}>Loading...</h2>
+            <Loader />
         </div>);
     
     return (

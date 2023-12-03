@@ -7,7 +7,6 @@ import { act } from "react-dom/test-utils";
 describe("ProductCard component", () => {
     const handleAddToCart = vi.fn();
     const handleRemoveFromCart = vi.fn();
-    const setShowCart = vi.fn();
 
     it("renders image and text of product", () => {
         const product = {
@@ -26,7 +25,7 @@ describe("ProductCard component", () => {
         expect(screen.getByRole("button", {name: "Add to cart"})).toBeInTheDocument();
     });
 
-    it("calls 'Add to cart' Handler and 'setShowCart' when clicked", async () => {
+    it("calls 'Add to cart' Handler when clicked", async () => {
         const product = {
             id: 100,
             img: "test.com",
@@ -36,18 +35,16 @@ describe("ProductCard component", () => {
         }
         const user = userEvent.setup();
 
-        render(<ProductCard product={product} handleAddToCart={handleAddToCart} setShowCart={setShowCart} />);
+        render(<ProductCard product={product} handleAddToCart={handleAddToCart} />);
         const btn = screen.getByRole("button", {name: "Add to cart"});
 
         expect(handleAddToCart).not.toHaveBeenCalled();
-        expect(setShowCart).not.toHaveBeenCalled();
 
         await act(async () => {
             await user.click(btn);
         });
 
         expect(handleAddToCart).toHaveBeenCalledTimes(1);
-        expect(setShowCart).toHaveBeenCalledTimes(1);
     });
 
     it("renders 'edit' and 'remove from cart' buttons when inCart is true", () => {

@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import ProductCard from "./ProductCard";
 import styles from "../styles/Cart.module.css";
+import Loader from "./Loader";
 
 const Cart = ({products, error, isLoading, handleAddToCart, handleRemoveFromCart}) => {
     const location = useLocation();
@@ -11,7 +12,7 @@ const Cart = ({products, error, isLoading, handleAddToCart, handleRemoveFromCart
             <p className={styles.p}>Please try reloading the page.</p>
         </div>);
     if (isLoading) return (<div className={styles.flexGrow}>
-            <h2 className={styles.h2}>Loading...</h2>
+            <Loader />
         </div>);
 
     const cartProducts = products.filter(product => product.cartQuantity > 0);
