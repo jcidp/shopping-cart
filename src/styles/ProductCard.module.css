@@ -1,7 +1,10 @@
 .product {
+    margin-top: 1em;
     display: grid;
-    height: 500px;
     grid-template-rows: 1fr max-content;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 1rem;
 }
 
 .imgContainer {
@@ -17,6 +20,55 @@
     object-fit: cover;
 }
 
+.productInfo {
+    margin-top: 1em;
+    display: grid;
+    place-items: center;
+    row-gap: 0.5rem;
+
+    & .title {
+        text-align: center;
+    }
+
+    & .price {
+        font-weight: bold;
+        align-self: right;
+    }
+
+    & .controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    & .quantity {
+        display: flex;
+
+        & .quantityText, .quantityInput {
+            margin: 0 0.5em;
+        }
+    }
+
+    & .buttons {
+        display: flex;
+        gap: 0.25em;
+    }
+}
+
 .quantityInput {
     width: 2rem;
+    text-align: center;
+}
+
+.buttonIcon {
+    border: none;
+    background: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.svg {
+    width: 1rem
 }
