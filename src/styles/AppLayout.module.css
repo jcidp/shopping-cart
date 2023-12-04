@@ -14,6 +14,30 @@
         width: min(1200px, 100% - 4rem);
         margin-inline: auto;
     }
+
+    & .underline {
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 4em;
+        border-top: 1px solid black;
+        transform-origin: -50%;
+        transition: transform 0.5s ease-in-out;
+        transform: scaleX(0) translateX(-50%);
+    }
+
+    & .underlineCart {
+        width: 3em;
+        transform: scaleX(0) translate(-2em, 1px);
+    }
+
+    & .selected {
+        transform: scaleX(1) translateX(-50%);
+    }
+
+    & .selectedCart {
+        transform: scaleX(1) translate(-2em, 1px);
+    }
 }
 
 .nav {
@@ -27,6 +51,10 @@
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
     font-weight: bold;
+}
+
+.navItem {
+    position: relative;
 }
 
 .cart {

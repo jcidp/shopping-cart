@@ -10,7 +10,6 @@ const Home = () => {
                 <Link className={styles.btnPrimary} to="/shop">Shop Now</Link>
             </div>
         </section>
-        
     );
 };
 
